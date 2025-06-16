@@ -1,0 +1,29 @@
+name: 'Deploy'
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Get Current Release
+      id: get_current_release
+      uses: joutvhu/get-release@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        latest: true
+    - name: Run deployment
+      env:
+        run: |
+          echo "github.ref: ${{ github.ref }};"
+          echo "github.ref_name: ${{ github.ref_name }}"
+          echo "github.ref_type: ${{ github.ref_type }}"
+          echo "current tag: ${{{ steps.get_current_release.outputs.tag_name }}}"
