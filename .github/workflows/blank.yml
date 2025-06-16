@@ -21,9 +21,8 @@ jobs:
       with:
         latest: true
     - name: Run deployment
-      env:
-        run: |
-          echo "github.ref: ${{ github.ref }};"
-          echo "github.ref_name: ${{ github.ref_name }}"
-          echo "github.ref_type: ${{ github.ref_type }}"
-          echo "current tag: ${{{ steps.get_current_release.outputs.tag_name }}}"
+      run: |
+        echo "github.ref: ${{ github.ref }};"
+        echo "github.ref_name: ${{ github.ref_name }}"
+        echo "github.ref_type: ${{ github.ref_type }}"
+        echo "current tag: ${{{ steps.get_current_release.outputs.tag_name }}}"
